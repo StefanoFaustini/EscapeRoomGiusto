@@ -10,17 +10,15 @@ package eccezioni;
  * @author work
  */
 public class EccezionePosizioneNonValida {
-    
-     private int ripiano;
+
+    private int ripiano;
     private int posizione;
 
-    public EccezionePosizioneNonValida(int ripiano,int posizione)
-    {
-        this.ripiano=ripiano;
-        this.posizione=posizione;
+    public EccezionePosizioneNonValida(int ripiano, int posizione) {
+        this.ripiano = ripiano;
+        this.posizione = posizione;
     }
-    
-    
+
     public int getRipiano() {
         return ripiano;
     }
@@ -28,13 +26,12 @@ public class EccezionePosizioneNonValida {
     public int getPosizione() {
         return posizione;
     }
-    
-    public String toString()
-    {
-        String s=" ";
-        
-        s+="La posizione ripiano: "+getRipiano()+"posizione: "+getPosizione()+" non è valida.";
+
+    public String toString() {
+        String s = " ";
+
+        s += "La posizione ripiano: " + getRipiano() + "posizione: " + getPosizione() + " non è valida.";
         return s;
     }
-    
+
 }

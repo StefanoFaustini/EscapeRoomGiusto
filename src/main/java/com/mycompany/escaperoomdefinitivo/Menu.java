@@ -11,14 +11,16 @@ import java.util.Scanner;
  * @author work
  */
 public class Menu {
+
     private String[] elencoVoci;
     private int numeroVoci;
 
     public Menu(String[] elencoVoci) {
         numeroVoci = elencoVoci.length;
         this.elencoVoci = new String[numeroVoci];
-        for (int i = 0; i < numeroVoci; i++)
+        for (int i = 0; i < numeroVoci; i++) {
             this.elencoVoci[i] = elencoVoci[i];
+        }
     }
 
     public void visualizzaMenu() {
@@ -35,7 +37,6 @@ public class Menu {
         int sceltaUtente = 0;
         boolean inputUtenteOk = true;
 
-
         do {
 
             visualizzaMenu();
@@ -44,11 +45,9 @@ public class Menu {
             inputUtenteOk = true;
             //verifico che l'input sia numerico
             for (int i = 0; i < inputUtente.length(); i++) {
-                if (inputUtente.charAt(i) >= '0' && inputUtente.charAt(i) <= '9')
+                if (inputUtente.charAt(i) >= '0' && inputUtente.charAt(i) <= '9') {
                     i++;
-
-
-                else {
+                } else {
                     inputUtenteOk = false;
                     break;
                 }
@@ -56,8 +55,9 @@ public class Menu {
             //verifico che il numero sia valido (0,nvoci)
             if (inputUtenteOk) {
                 sceltaUtente = Integer.parseInt(inputUtente);
-                if (sceltaUtente < 0 || sceltaUtente > numeroVoci - 1)
+                if (sceltaUtente < 0 || sceltaUtente > numeroVoci - 1) {
                     inputUtenteOk = false;
+                }
             }
 
             if (!inputUtenteOk) {
@@ -71,7 +71,4 @@ public class Menu {
 
     }
 
-
 }
-
-

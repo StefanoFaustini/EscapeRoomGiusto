@@ -67,13 +67,15 @@ public class EscapeRoom implements Serializable {
 
     /**
      * @param a1 accesso da passargli tramite main
-     * @return ritorna 0 in caso di aggiunta di accesso, altrimenti QUALSIASI errore, ritornerà -1.
-     * Se ritorna 100 indica che le stanze son occupate
+     * @return ritorna 0 in caso di aggiunta di accesso, altrimenti QUALSIASI
+     * errore, ritornerà -1. Se ritorna 100 indica che le stanze son occupate
      * <p>
-     * La logica che sta dietro è più semplice del dovuto, se ci sono posti ancora disponibili, aggiunge un
-     * accesso nella prima stanza libera, altrimenti dice che tutte le stanze son occupate.
-     * Occhio che facendo così, nel momento in cui tu decidi di andare ad eliminare un accesso devi spostare tutti quelli dopo
-     * di lui a sinistra, in modo che l'aggiunta funzioni.
+     * La logica che sta dietro è più semplice del dovuto, se ci sono posti
+     * ancora disponibili, aggiunge un accesso nella prima stanza libera,
+     * altrimenti dice che tutte le stanze son occupate. Occhio che facendo
+     * così, nel momento in cui tu decidi di andare ad eliminare un accesso devi
+     * spostare tutti quelli dopo di lui a sinistra, in modo che l'aggiunta
+     * funzioni.
      *
      * DA TESTARE
      */
@@ -86,8 +88,18 @@ public class EscapeRoom implements Serializable {
             } catch (Exception ex) {
                 return -1;
             }
-        } else return 100;
+        } else {
+            return 100;
+        }
     }
+    
+    /**
+     * 
+     * @param codiceFiscale = codice identificativo
+     * @param dataUscita = uscita da memorizzare nel secondo array per salvare permanentemente i dati
+     * @elencoAccessi = array per memorizzare i dati
+     * @return 
+     */
 
     public int eliminaAccesso(int codiceFiscale, LocalDateTime dataUscita) {
         for (int i = 0; i < elencoStanze.length; i++) {
@@ -104,6 +116,9 @@ public class EscapeRoom implements Serializable {
         return -1;
     }
 
+    /**
+     *
+     */
     public void visualizzaUscite() {
         for (int i = 0; i < elencoAccessi.length; i++) {
             if (elencoAccessi[i] != null) {
@@ -112,6 +127,14 @@ public class EscapeRoom implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param cognome = cognome utente che si vuole visualizzare la permanenza
+     * @param nome = nome utente che si vuole visualizzare la permanenza return
+     * res ritorna la stringa formatter = comando per cambiare da LocalDateTime
+     * a stringa
+     * @return
+     */
     public String visualizzaPermanenza(String cognome, String nome) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm");
 
@@ -126,6 +149,10 @@ public class EscapeRoom implements Serializable {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public Accesso[] visualizzaOrdineAlfabetico() {
         int n = 0;
         for (int i = 0; i < this.getStanzeOccupate(); i++) {
@@ -163,7 +190,6 @@ public class EscapeRoom implements Serializable {
 
             accesso = elencoStanze[i];
 
-
             if (accesso.getCodiceFiscale() != 0) {
                 accessi = accesso.toCSV();
                 f1.append(accessi + "\n");
@@ -174,6 +200,11 @@ public class EscapeRoom implements Serializable {
         f1.close();
     }
 
+    /**
+     *
+     * @param nomeFile
+     * @throws IOException
+     */
     public void salvaAccesso(String nomeFile) throws IOException {
         FileOutputStream f1 = new FileOutputStream(nomeFile);
 

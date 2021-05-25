@@ -19,9 +19,9 @@ import java.util.logging.Logger;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileExeption {
 
-        String[] vociMenu = new String[11];
+        String[] vociMenu = new String[7];
         int sceltaUtente = -1;
 
         Scanner tastiera = new Scanner(System.in);
@@ -39,12 +39,7 @@ public class Main {
         vociMenu[3] = "Visualizzare le uscite dalla room";
         vociMenu[4] = "Visualizzare permanenza di una persona scelta";
         vociMenu[5] = "Visualizzare in ordine alfabetico le persone presenti";
-        vociMenu[6] = "";
-        vociMenu[7] = "";
-        vociMenu[8] = "";
-        vociMenu[9] = "";
-        vociMenu[10] = "";
-
+        vociMenu[6] = "Esportare in CSV";
         Menu menu = new Menu(vociMenu);
 
         //deserializzazione
@@ -75,34 +70,36 @@ public class Main {
                         int giorno;
                         int ora;
                         int minuto;
+                        try {
+                            System.out.println("Inserire il nome qui--> ");
+                            nome = tastiera.next();
+                            System.out.println("Inserire il cognome qui--> ");
+                            cognome = tastiera.next();
+                            System.out.println("Inserire l'anno di ingresso qui--> ");
+                            anno = tastiera.nextInt();
+                            System.out.println("Inserire il mese di ingresso qui--> ");
+                            mese = tastiera.nextInt();
+                            System.out.println("Inserire il giorno di ingresso qui--> ");
+                            giorno = tastiera.nextInt();
+                            System.out.println("Inserire l'ora di ingresso qui--> ");
+                            ora = tastiera.nextInt();
+                            System.out.println("Inserire il minuto di ingresso qui--> ");
+                            minuto = tastiera.nextInt();
+                            LocalDateTime dataAccesso = LocalDateTime.of(anno, mese, giorno, ora, minuto);
 
-                        System.out.println("Inserire il nome qui--> ");
-                        nome = tastiera.next();
-                        System.out.println("Inserire il cognome qui--> ");
-                        cognome = tastiera.next();
-                        System.out.println("Inserire l'anno di ingresso qui--> ");
-                        anno = tastiera.nextInt();
-                        System.out.println("Inserire il mese di ingresso qui--> ");
-                        mese = tastiera.nextInt();
-                        System.out.println("Inserire il giorno di ingresso qui--> ");
-                        giorno = tastiera.nextInt();
-                        System.out.println("Inserire l'ora di ingresso qui--> ");
-                        ora = tastiera.nextInt();
-                        System.out.println("Inserire il minuto di ingresso qui--> ");
-                        minuto = tastiera.nextInt();
-                        LocalDateTime dataAccesso = LocalDateTime.of(anno, mese, giorno, ora, minuto);
-
-
-                        System.out.println("Inserire il codiceFisale qui--> ");
-                        codiceFiscale = tastiera.nextInt();
-                        Accesso accesso = new Accesso(nome, cognome, codiceFiscale, dataAccesso);
-                        int i = e1.aggiungiAccesso(accesso);
-                        if (i == 0) {
-                            System.out.println("Accesso aggiunto con successo");
-                        } else if (i == 100) {
-                            System.out.println("Escape Room piena");
-                        } else {
-                            System.out.println("Accesso NON aggiunto");
+                            System.out.println("Inserire il codiceFisale qui--> ");
+                            codiceFiscale = tastiera.nextInt();
+                            Accesso accesso = new Accesso(nome, cognome, codiceFiscale, dataAccesso);
+                            int i = e1.aggiungiAccesso(accesso);
+                            if (i == 0) {
+                                System.out.println("Accesso aggiunto con successo");
+                            } else if (i == 100) {
+                                System.out.println("Escape Room piena");
+                            } else {
+                                System.out.println("Accesso NON aggiunto");
+                            }
+                        } catch (java.time.DateTimeException erroreData) {
+                            throw new FileExeption("Errore ");
                         }
 
                         break;
@@ -116,25 +113,32 @@ public class Main {
                         int ora;
                         int minuto;
                         int codiceFiscale;
+                        try {
+                            System.out.println("Inserire il codiceFisale qui--> ");
+                            codiceFiscale = tastiera.nextInt();
 
-                        System.out.println("Inserire il codiceFisale qui--> ");
-                        codiceFiscale = tastiera.nextInt();
+                            System.out.println("Inserire l'anno di uscita qui--> ");
+                            anno = tastiera.nextInt();
+                            System.out.println("Inserire il mese di uscita qui--> ");
+                            mese = tastiera.nextInt();
+                            System.out.println("Inserire il giorno di uscita qui--> ");
+                            giorno = tastiera.nextInt();
+                            System.out.println("Inserire l'ora di uscita qui--> ");
+                            ora = tastiera.nextInt();
+                            System.out.println("Inserire il minuto di uscita qui--> ");
+                            minuto = tastiera.nextInt();
+                            LocalDateTime dataUscita = LocalDateTime.of(anno, mese, giorno, ora, minuto);
+                            e1.eliminaAccesso(codiceFiscale, dataUscita);
 
-                        System.out.println("Inserire l'anno di uscita qui--> ");
-                        anno = tastiera.nextInt();
-                        System.out.println("Inserire il mese di uscita qui--> ");
-                        mese = tastiera.nextInt();
-                        System.out.println("Inserire il giorno di uscita qui--> ");
-                        giorno = tastiera.nextInt();
-                        System.out.println("Inserire l'ora di uscita qui--> ");
-                        ora = tastiera.nextInt();
-                        System.out.println("Inserire il minuto di uscita qui--> ");
-                        minuto = tastiera.nextInt();
-                        LocalDateTime dataUscita = LocalDateTime.of(anno, mese, giorno, ora, minuto);
-                        e1.eliminaAccesso(codiceFiscale, dataUscita);
+                        } catch (java.time.DateTimeException erroreData) {
+                            throw new FileExeption("Errore ");
+                        }
+
                         break;
                     }
                     case 3: {
+
+                        System.out.println("Le uscite sono: ");
 
                         e1.visualizzaUscite();
 
@@ -153,7 +157,15 @@ public class Main {
                         break;
                     }
                     case 5: {
-                        e1.visualizzaOrdineAlfabetico();
+                        Accesso[] accessi;
+                        accessi = e1.visualizzaOrdineAlfabetico();
+                        for (int i = 0; i < accessi.length; i++) {
+
+                            if (accessi[i] != null) {
+                                System.out.println(accessi[i].toString());
+                            }
+
+                        }
                         break;
                     }
                     case 6: {
@@ -162,22 +174,6 @@ public class Main {
                         } catch (IOException ex) {
                             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        break;
-                    }
-                    case 7: {
-
-                        break;
-                    }
-                    case 8: {
-
-                        break;
-                    }
-                    case 9: {
-
-                        break;
-                    }
-                    case 10: {
-
                         break;
                     }
 

@@ -42,18 +42,18 @@ public class Accesso implements Serializable {
         this.dataAccesso = a1.getDataAccesso();
         this.dataUscita = a1.getDataUscita();
     }
-/**
-    public Accesso() {
-        this.codiceFiscale = 0;
-        this.nome = "";
-        this.cognome = "";
-        this.dataAccesso = LocalDateTime.now();
-        this.dataUscita = LocalDateTime.now();
 
-    }
- **/
+    /**
+     * public Accesso() { this.codiceFiscale = 0; this.nome = ""; this.cognome =
+     * ""; this.dataAccesso = LocalDateTime.now(); this.dataUscita =
+     * LocalDateTime.now();
+     *
+     * }
+     *
+     */
 
     public String getNome() {
+
         return nome;
     }
 
@@ -101,12 +101,12 @@ public class Accesso implements Serializable {
 
     @Override
     public String toString() {
-        return "Accesso{" +
-                "nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", codiceFiscale=" + codiceFiscale +
-                ", dataAccesso=" + dataAccesso +
-                ", dataUscita=" + dataUscita +
-                '}';
+        return "Accesso{"
+                + "nome='" + nome + '\''
+                + ", cognome='" + cognome + '\''
+                + ", codiceFiscale=" + codiceFiscale
+                + ", dataAccesso=" + dataAccesso
+                + ", dataUscita=" + dataUscita
+                + '}';
     }
 }
